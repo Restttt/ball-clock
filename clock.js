@@ -82,10 +82,9 @@ function runTest() {
     let t1 = performance.now() // used to calculate effeciency of the clock function
     const answer = newClock.runClock(); // runs the clock
     let t2 = performance.now(); // used to calculate effeciency of the clock function 
-    const printAnswer = document.createElement('H4').innerText = answer; // creates h4 element to display with the answer to the problem 
-    const printTime = document.createElement('H4').innerText = 'The run time took: ' + ((t2 - t1) / 1000).toFixed(3) + ' seconds'; // creates h4 element to display run time
-    const displayResult = document.createElement('li').innerText = [printAnswer, printTime]; // creates list item with answer and run time 
-    document.getElementById('test-list').append(displayResult); // puts the element onto the dom
+    const listItem = document.createElement('LI');
+    listItem.innerText =  answer + '      The run time took: ' + ((t2 - t1) / 1000).toFixed(3) + ' seconds'; // creates list item with answer and run time 
+    document.getElementById('test-list').append(listItem); // puts the element onto the dom
     const lineBreak = document.createElement('BR'); // Use to seperate the test results 
     document.getElementById('test-list').append(lineBreak); // puts the line break into the DOM after the last test result
     return;
