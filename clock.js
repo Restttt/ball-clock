@@ -77,10 +77,7 @@ class Clock {
 
 function runTest() {
   const $number = Number(document.getElementById('form').value) // grabes the number from the input field and verifies it is a number
-  if (27 < $number > 127) { // Checks to see if the number is within test range
-    alert('please put in a number between 27 and 127'); // If it isn't in range alerts the user of the error
-    return;
-  } else {
+  if ($number > 27 && $number < 127) { // Checks to see if the number is within test range
     const newClock = new Clock($number); // Creates the clock with number passed in from user
     let t1 = performance.now() // used to calculate effeciency of the clock function
     const answer = newClock.runClock(); // runs the clock
@@ -88,17 +85,14 @@ function runTest() {
     const printAnswer = document.createElement('H4').innerText = answer; // creates h4 element to display with the answer to the problem 
     const printTime = document.createElement('H4').innerText = 'The run time took: ' + ((t2 - t1) / 1000).toFixed(3) + ' seconds'; // creates h4 element to display run time
     const displayResult = document.createElement('li').innerText = [printAnswer, printTime]; // creates list item with answer and run time 
-    document.getElementById('test-list').append(displayResult); // puts the element onto the dom 
+    document.getElementById('test-list').append(displayResult); // puts the element onto the dom
+    const lineBreak = document.createElement('BR'); // Use to seperate the test results 
+    document.getElementById('test-list').append(lineBreak); // puts the line break into the DOM after the last test result
+    return;
+  } else {
+    alert('please put in a number between 27 and 127'); // If it isn't in range alerts the user of the error
   }
 }
 
-
 const $button = document.getElementById('submit'); // Grabs the button from the dom
 $button.addEventListener('click', runTest) // created the event listener to exectued runTest on click. 
-
-
-const myClock = new Clock(30); // Creates myClock.
-console.time('runClock') // checks when the function is starting 
-const time = myClock.runClock(); // Runs the function 
-console.timeEnd('runClock') // logs when the function was finished running
-console.log(time); // Sends the answer back
