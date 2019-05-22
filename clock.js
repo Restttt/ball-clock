@@ -70,7 +70,7 @@ class Clock {
       }
     }
     const days = (time / 60 / 24).toFixed(0); // My way to calculate the days. minutes * 60 minutes in 1 hour * 24 hours in a day
-    const answer = `${this.number} balls takes ${days} days` // my answer to return
+    const answer = `${this.number} balls takes ${days} days.` // my answer to return
     return answer; 
   }
 }
