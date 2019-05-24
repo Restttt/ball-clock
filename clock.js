@@ -9,7 +9,7 @@ class Row {
 
   // Connects this row to the other row
   connectToOtherRows(nextRow, ballArray) { // created to connect it to the next row in the class
-    this.nextRow = nextRow; 
+    this.nextRow = nextRow;
     this.ballArray = ballArray; // to be able to send the balls that fall back to the ballArray
   }
 
@@ -40,8 +40,8 @@ class Row {
 class Clock {
   constructor(ballNumber) { // ballNumber to set the amount of balls on the clock
     this.number = ballNumber // used for my answer that I return to the user 
-    this.startingBallArray = Array(ballNumber).fill(0).map((val, i) => "B" + (i + 1)); // this function will set an array to the amount determined by a user, then fill each spot incrementing using map and fill.
-    this.ballArray = Array(ballNumber).fill(0).map((val, i) => "B" + (i + 1)); // ^^ 
+    this.startingBallArray = Array(ballNumber).fill(0).map((val, i) => i + 1); // this function will set an array to the amount determined by a user, then fill each spot incrementing using map and fill.
+    this.ballArray = Array(ballNumber).fill(0).map((val, i) => i + 1); // ^^ 
     this.minuteRow = new Row(5, 'minutes'); // Sets the minute row with the limit to 5 and name to minutes
     this.fiveMinuteRow = new Row(12, '5minutes'); // Sets the fiveMinuteRow with the limit to 12 and name to 5minutes
     this.hourRow = new Row(12, 'hours'); // Sets the hourRow with the limit to 12 and name to hours
@@ -61,18 +61,25 @@ class Clock {
   runClock() { // I used this method to start my clock. 
     this.initializeRows(); // connect the rows to each other
     let time = 0; // counts how many "minutes" the clock will run
-    while(1) { // used a while(1) loop to make the loop run forever until the arrays match
+    while (1) { // used a while(1) loop to make the loop run forever until the arrays match
       time++ // increment the "time" by a minute
       this.minute(); // run my minute method that will push a ball onto the minute track
       if (time % 1440 === 0) {
-        if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
-          break;
-        }
+        this.startingBallArray.forEach((ball, index) => {
+          if (+ball < +startingBallArray[index + 1]) {
+            return;
+          } else {
+            break;
+          }
+        })
+        // if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
+        //   break;
       }
     }
+
     const days = (time / 60 / 24).toFixed(0); // My way to calculate the days. minutes * 60 minutes in 1 hour * 24 hours in a day
     const answer = `${this.number} balls takes ${days} days.` // my answer to return
-    return answer; 
+    return answer;
   }
 }
 
@@ -84,7 +91,7 @@ function runTest() {
     const answer = newClock.runClock(); // runs the clock
     let t2 = performance.now(); // used to calculate effeciency of the clock function 
     const listItem = document.createElement('LI');
-    listItem.innerText =  answer + '      The run time took: ' + ((t2 - t1) / 1000).toFixed(3) + ' seconds'; // creates list item with answer and run time 
+    listItem.innerText = answer + '      The run time took: ' + ((t2 - t1) / 1000).toFixed(3) + ' seconds'; // creates list item with answer and run time 
     document.getElementById('test-list').append(listItem); // puts the element onto the dom
     const lineBreak = document.createElement('BR'); // Use to seperate the test results 
     document.getElementById('test-list').append(lineBreak); // puts the line break into the DOM after the last test result
