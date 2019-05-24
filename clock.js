@@ -61,20 +61,26 @@ class Clock {
   runClock() { // I used this method to start my clock. 
     this.initializeRows(); // connect the rows to each other
     let time = 0; // counts how many "minutes" the clock will run
-    while (1) { // used a while(1) loop to make the loop run forever until the arrays match
-      time++ // increment the "time" by a minute
-      this.minute(); // run my minute method that will push a ball onto the minute track
-      if (time % 1440 === 0) {
-        this.startingBallArray.forEach((ball, index) => {
-          if (+ball < +startingBallArray[index + 1]) {
-            return;
-          } else {
-            break;
-          }
-        })
-        // if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
-        //   break;
+    time++
+    // while (1) { // used a while(1) loop to make the loop run forever until the arrays match
+    //   time++ // increment the "time" by a minute
+    //   this.minute(); // run my minute method that will push a ball onto the minute track
+    //   if (time % 1440 === 0) {
+    //     for (let i = 0; i < this.ballArray.length; i++) {
+    //       if (ballArray[i] > ballArray)
+    //     }
+    //     // if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
+    //     //   break;
+    //   }
+    // }
+    if (time % 1440 === 0) {
+      for (let i = 0; i < this.ballArray.length; i++) {
+        if (this.ballArray[i] > this.ballArray[i + 1]) {
+          runClock();
+        }
       }
+    } else {
+      runClock();
     }
 
     const days = (time / 60 / 24).toFixed(0); // My way to calculate the days. minutes * 60 minutes in 1 hour * 24 hours in a day
