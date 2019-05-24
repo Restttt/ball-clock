@@ -64,9 +64,10 @@ class Clock {
     while(1) { // used a while(1) loop to make the loop run forever until the arrays match
       time++ // increment the "time" by a minute
       this.minute(); // run my minute method that will push a ball onto the minute track
-
-      if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
-        break;
+      if (time % 1440 === 0) {
+        if (this.startingBallArray.toString() == this.ballArray.toString()) { // Check to see if my arrays match. I used toString to compare the arrays
+          break;
+        }
       }
     }
     const days = (time / 60 / 24).toFixed(0); // My way to calculate the days. minutes * 60 minutes in 1 hour * 24 hours in a day
