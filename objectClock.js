@@ -45,13 +45,16 @@ class Clock {
     this.minuteRow = new Row(4, 'minutes'); // Sets the minute row with the limit to 5 and name to minutes
     this.fiveMinuteRow = new Row(11, '5minutes'); // Sets the fiveMinuteRow with the limit to 12 and name to 5minutes
     this.hourRow = new Row(11, 'hours'); // Sets the hourRow with the limit to 12 and name to hours
-  }
-
-  initializeRows() { // I used this to connect the rows to each other. I call this function at the start of runClock. 
     this.minuteRow.connectToOtherRows(this.fiveMinuteRow, this.ballArray);
     this.fiveMinuteRow.connectToOtherRows(this.hourRow, this.ballArray);
     this.hourRow.connectToOtherRows(this.ballArray, this.ballArray);
   }
+
+  // initializeRows() { // I used this to connect the rows to each other. I call this function at the start of runClock. 
+  //   this.minuteRow.connectToOtherRows(this.fiveMinuteRow, this.ballArray);
+  //   this.fiveMinuteRow.connectToOtherRows(this.hourRow, this.ballArray);
+  //   this.hourRow.connectToOtherRows(this.ballArray, this.ballArray);
+  // }
 
   minute() { // I used this to simulate how many minutes the function will take. Every minute adds a ball to the minute row
     const ball = this.ballArray.shift();
@@ -59,7 +62,7 @@ class Clock {
   }
 
   runClock() { // I used this method to start my clock. 
-    this.initializeRows(); // connect the rows to each other
+    // this.initializeRows(); // connect the rows to each other
     let time = 0; // counts how many "minutes" the clock will run
     while (1) { // used a while(1) loop to make the loop run forever until the arrays match
       time++ // increment the "time" by a minute
@@ -68,6 +71,16 @@ class Clock {
       if (time % 1440 === 0) {
         if (this.ballArray.toString() === this.startingBallArray.toString()) break;
       }
+
+      // if (time === 720) {
+      //   console.log(this.ballArray.toString());
+      //   console.log(this.startingBallArray.toString());
+      //   console.log('minutes', this.minuteRow.balls);
+      //   console.log('five', this.fiveMinuteRow.balls);
+      //   console.log('hour', this.hourRow.balls);
+      //   console.log('queue', this.ballArray);
+      //   break;
+      // }
     }
 
     const days = (time / 60 / 24).toFixed(0); // My way to calculate the days. minutes * 60 minutes in 1 hour * 24 hours in a day
@@ -78,9 +91,9 @@ class Clock {
 
 function runTest() {
   const $number = Number(document.getElementById('form').value) // grabes the number from the input field and verifies it is a number
-  if ($number > 27 && $number < 127) { // Checks to see if the number is within test range
-    const newClock = new Clock($number); // Creates the clock with number passed in from user
+  if ($number >= 27 && $number <= 127) { // Checks to see if the number is within test range
     let t1 = performance.now() // used to calculate effeciency of the clock function
+    const newClock = new Clock($number); // Creates the clock with number passed in from user
     const answer = newClock.runClock(); // runs the clock
     let t2 = performance.now(); // used to calculate effeciency of the clock function 
     const listItem = document.createElement('LI');
